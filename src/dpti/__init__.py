@@ -6,7 +6,7 @@ with formal differential privacy guarantees.
 
 __version__ = "0.1.0"
 __author__ = "Josh Ruben"
-__email__ = "josh@example.com"
+__email__ = "joshruben16@gmail.com"
 __license__ = "MIT"
 
 from .privacy import DPAnalytics
