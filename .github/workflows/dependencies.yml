@@ -1,0 +1,33 @@
+name: Dependency Check
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install pip-audit safety
+    
+    - name: Check for vulnerable dependencies
+      run: |
+        pip-audit --desc || true
+        safety check --json || true
+    
+    - name: Check for outdated dependencies
+      run: |
+        pip list --outdated || true
